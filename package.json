@@ -8,9 +8,6 @@
     "test": "vitest run --dir src/use-cases",
     "test:watch": "vitest --dir src/use-cases"
   },
-  "prisma": {
-    "seed": "ts-node prisma/seed.ts"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
