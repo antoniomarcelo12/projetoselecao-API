@@ -32,7 +32,6 @@ export async function CreateUserController(request: FastifyRequest, reply: Fasti
         return reply.status(200).send({
             user
         })
-        
 
         }catch(err){
             if(err instanceof UserAlreadyExistsError){
@@ -40,8 +39,4 @@ export async function CreateUserController(request: FastifyRequest, reply: Fasti
             }
             throw Error
         }
-        
-
-        return reply.status(201).send({ code: 201, message: "usuário cadastrado com sucesso."})
-
 }

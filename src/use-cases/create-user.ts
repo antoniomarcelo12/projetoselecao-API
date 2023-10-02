@@ -18,14 +18,12 @@ export class CreateUserUseCase {
 
     async execute({ user_fullname, user_name, user_age, user_email, user_ocupation, user_phone }: CreateUserUseCaseRequestParams): Promise<User> {
         
-        
         const userWithSameEmail = await this.usersRepository.findByEmail(user_email)
         const userWithSameUsername = await this.usersRepository.findByUsername(user_name)
 
         if(userWithSameEmail || userWithSameUsername){
             throw new UserAlreadyExistsError()
         }
-
 
         const newUser = await this.usersRepository.create({
                 user_id: randomUUID(),
@@ -37,8 +35,6 @@ export class CreateUserUseCase {
                 user_phone,
         })
     
-    return newUser
-
+        return newUser
     }
-    
 }

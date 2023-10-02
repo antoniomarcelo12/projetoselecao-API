@@ -1,6 +1,7 @@
 import { prisma } from "../../lib/prisma";
 import { Prisma } from "@prisma/client";
 import { UsersRepository } from "../users-repository";
+import { UpdateUserUseCaseRequestParams } from "../../use-cases/update-user";
 
 export class PrismaUsersRepository implements UsersRepository {
     
@@ -11,6 +12,7 @@ export class PrismaUsersRepository implements UsersRepository {
     
         return user
     }
+    
     async findByEmail(userEmail: string) {
             const user = await prisma.user.findUnique({
             where: {
@@ -37,13 +39,32 @@ export class PrismaUsersRepository implements UsersRepository {
         return users
     }
 
-    // async findById(user_id: string) {
-    //     const user = await prisma.user.findUnique({
-    //         where: {
-    //             user_id
-    //         }
-    //     })
+    async findById(user_id: string) {
+        const user = await prisma.user.findUnique({
+            where: {
+                user_id
+            }
+        })
 
-    //     return user
-    // }
+        return user
+    }
+
+    async delete(user_id: string) {
+        await prisma.user.delete({
+            where: {
+                user_id
+            }
+        })
+    }
+
+    async update(data: UpdateUserUseCaseRequestParams) {
+        const updatedUser = await prisma.user.update({
+            where: {
+                user_id: data.user_id
+            },
+            data
+        })
+
+        return updatedUser
+    }
 }
